@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
-import { handleAuth } from "./login/authHandler";
-import AuthContext from "./login/authContext";
+import { handleAuth } from "@components/login/authHandler";
+import AuthContext from "@components/login/authContext";
 
-import LoadingPage from "./misc/LoadingPage";
-import MainPage from "./main/MainPage";
-import LoginPage from "./login/LoginPage";
+import LoadingPage from "@components/loading/LoadingPage";
+import MainPage from "@pages/main/MainPage";
+import LoginPage from "@components/login/LoginPage";
 
-import "./misc/styles.css";
+import "@styles/main.css";
 
 function App() {
   const [userInfo, setUserInfo] = useState({});
