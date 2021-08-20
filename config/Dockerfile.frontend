@@ -5,6 +5,7 @@ WORKDIR /app
 # Get dependancies
 ENV PATH /app/node_modules/.bin:$PATH
 COPY ./config/frontend.json ./package.json
+COPY ./config/config-overrides.js ./config-overrides.js
 RUN npm install --silent
 
 # Remove generated files

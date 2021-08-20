@@ -6,7 +6,7 @@ import AuthContext from "@components/login/authContext";
 
 import LoadingPage from "@components/loading/LoadingPage";
 import MainPage from "@pages/main/MainPage";
-import LoginPage from "@components/login/LoginPage";
+import LoginPage from "@login/LoginPage";
 
 import "@styles/main.css";
 
