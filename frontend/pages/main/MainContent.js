@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 
-import AuthContext from "@login/authContext";
+import AuthContext from "Login/authContext";
 
 export default function MainPage() {
   const [userInfo, setUserInfo] = useState({});

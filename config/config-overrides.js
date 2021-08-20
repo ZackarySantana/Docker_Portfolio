@@ -1,12 +1,14 @@
+const path = require('path');
+
 module.exports = function override(config, env) {
     config = {
         ...config,
         resolve: {
             alias: {
-                components: path.resolve(__dirname, 'src/components/'),
-                pages: path.resolve(__dirname, 'src/pages/'),
-                login: path.resolve(__dirname, 'src/components/login/'),
-                styles: path.resolve(__dirname, 'src/styles/'),
+                Components: path.resolve(__dirname, 'src/components/'),
+                Pages: path.resolve(__dirname, 'src/pages/'),
+                Login: path.resolve(__dirname, 'src/components/login/'),
+                Styles: path.resolve(__dirname, 'src/styles/'),
             },
         }
     }
