@@ -1,0 +1,61 @@
+services:
+  database:
+    build:
+      context: ./
+      dockerfile: ./config/Dockerfile.database
+    container_name: database
+    env_file:
+      - ./config/.db.env
+    ports:
+      - 3306:3306
+    volumes:
+      - ./config/updating.database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./config/updating.database:/app/update
+      - persistant-data:/var/lib/mysql
+    networks:
+      - software_eng_net
+    cap_add:
+      - SYS_NICE
+
+  backend:
+    build:
+      context: ./
+      dockerfile: ./config/Dockerfile.backend
+    container_name: backend
+    env_file:
+      - ./config/.db.env
+    environment:
+      PORT: 8080
+      CHOKIDAR_USEPOLLING: "true"
+    ports:
+      - 8080:8080
+    volumes:
+      - ./backend:/app/src
+    networks:
+      - software_eng_net
+    depends_on:
+      - database
+
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./config/Dockerfile.frontend
+    container_name: frontend
+    environment:
+      PORT: 3000
+      CHOKIDAR_USEPOLLING: "true"
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app/src
+      - ./config/public.frontend:/app/public
+    networks:
+      - software_eng_net
+    depends_on:
+      - backend
+
+volumes:
+  persistant-data:
+
+networks:
+  software_eng_net:

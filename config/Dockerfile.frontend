@@ -1,0 +1,15 @@
+FROM node:14
+
+WORKDIR /app
+
+# Get dependancies
+ENV PATH /app/node_modules/.bin:$PATH
+COPY ./config/frontend.json ./package.json
+RUN npm install --silent
+
+# Remove generated files
+#RUN rm -r public src
+
+# Deploy
+EXPOSE $PORT
+CMD ["npm", "start"]

@@ -1,0 +1,11 @@
+FROM node:14
+
+WORKDIR /app
+
+# Get dependancies
+COPY ./config/backend.json package.json
+RUN npm install --silent
+
+# Deploy
+EXPOSE $PORT
+CMD ["npm", "start"]

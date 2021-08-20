@@ -1,0 +1,8 @@
+{
+  "name": "Software Engineering Proejct",
+  "short_name": "SE Project",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "CEN4010 software engineer project"
+}
