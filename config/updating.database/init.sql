@@ -1,12 +1,6 @@
 CREATE DATABASE IF NOT EXISTS db;
 use db;
 
-/*
-Creates three tables: User, Course, UserCourse
-- User contains students + professors, denoted by the BOOL "IsProfessor"
-- Course contains course information
-- UserCourse contains what courses are linked to what students/professors
-*/
 CREATE TABLE IF NOT EXISTS User (
     UserID int(10) NOT NULL AUTO_INCREMENT,
     University varchar(255) NOT NULL,
@@ -14,56 +8,26 @@ CREATE TABLE IF NOT EXISTS User (
     FirstName varchar(255) NOT NULL,
     LastName varchar(255) NOT NULL,
     Password varchar(255) NOT NULL,
-    IsProfessor BOOL DEFAULT FALSE,
     PRIMARY KEY (UserID)
 );
 
-CREATE TABLE IF NOT EXISTS Course (
-    CourseID int(10) NOT NULL AUTO_INCREMENT,
-    Name varchar(255) NOT NULL,
-    Code varchar(255) NOT NULL,
-    ProfessorID int(10) NOT NULL,
-    PRIMARY KEY (CourseID),
-    FOREIGN KEY (ProfessorID) REFERENCES User (UserID)
+CREATE TABLE IF NOT EXISTS Permission (
+    PermissionName varchar(255) NOT NULL,
+    UserID int(10) NOT NULL,
+    FOREIGN KEY(UserID)
+        REFERENCES User(UserID)
+        ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS Session (
-    CourseID int(10) NOT NULL,
-    Title varchar(255) NOT NULL,
-    Description varchar(255) NOT NULL,
-    Date Date NOT NULL,
-    Duration int(10) NOT NULL,
-    Link varchar(255) NOT NULL,
-    FOREIGN KEY (CourseID) REFERENCES Course (CourseID)
-);
-
-CREATE TABLE IF NOT EXISTS UserCourse (
-    CourseID int(10) NOT NULL,
-    Email varchar(255) NOT NULL,
-    FOREIGN KEY (CourseID) REFERENCES Course (CourseID)
-);
-
-/*
-Inserts dummy professor user
-*/
-INSERT INTO User (University, Email, FirstName, LastName, Password, IsProfessor)
-VALUES ("FIU", "debra.davis@fiu.edu", "Debra", "Davis", MD5("debrapassword"), TRUE); /* UserID = 1 */
-
-/*
-Inserts dummy courses in to database
-*/
-INSERT INTO Course (Name, Code, ProfessorID)
-VALUES ("Software Engineering", "CEN4010-U01", 1); /* CourseID = 1 */
-INSERT INTO Course (Name, Code, ProfessorID)
-VALUES ("Software Engineering", "CEN4010-U25", 1); /* CourseID = 2 */
-
-/*
-Inserts dummy student in to database
-*/
+/*  Privileged User Zackary   */
 INSERT INTO User (University, Email, FirstName, LastName, Password)
-VALUES ("FIU", "zsant014@fiu.edu", "Zackary", "Santana", MD5("zackarypassword")); /* UserID = 2 */
-INSERT INTO UserCourse (Email, CourseID) 
-VALUES ("zsant014@fiu.edu", 1);
+VALUES ("FIU", "zack@fiu.edu", "Zackary", "Santana", MD5("zackarypassword")); /* UserID = 1 */
+INSERT INTO Permission (PermissionName, UserID) VALUES ("view_any", 1); /* Allows access to endpoint /users/id/:UserID where UserID != 1 */
+INSERT INTO Permission (PermissionName, UserID) VALUES ("view_all", 1); /* Allows access to endpoint /users/all */
+
+/*  Unprivileged User Raul   */
+INSERT INTO User (University, Email, FirstName, LastName, Password)
+VALUES ("FIU", "raul@fiu.edu", "Raul", "F", MD5("raulpassword")); /* UserID = 2 */
 
 /* -------------------------------------------------- */
 /*             Below handles authentication           */

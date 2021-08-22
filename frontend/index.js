@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
-import { handleAuth } from "Components/login/authHandler";
+import { handleAuth } from "Components/data";
 import AuthContext from "Components/login/authContext";
 
 import LoadingPage from "Components/loading/LoadingPage";

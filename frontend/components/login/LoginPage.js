@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 
 import AuthContext from "./authContext";
-import handleLogin from "./authHandler";
+import { handleLogin } from "Components/data";
 
 export default function LoginPage() {
   const email = useRef();

@@ -1,4 +1,4 @@
-module.exports = function authRequest(app, con) {
+module.exports = function authRequest(con) {
   return function (req, res, next) {
     if (req.body.Token) {
       con.query(

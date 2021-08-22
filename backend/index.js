@@ -13,7 +13,7 @@ app.use(
 );
 
 // Import different endpoint managers
-const student = require("./student");
+const user = require("./user");
 const professor = require("./professor");
 const course = require("./course");
 const login = require("./auth/login");
@@ -30,14 +30,14 @@ const con = sql.createConnection({
 // Add default route to send the main endpoints
 app.get("/", (req, res) => {
   res.send({
-    students: "/students",
+    users: "/users",
     professors: "/professors",
     courses: "/courses",
   });
 });
 
 // Register the endpoint managers with the express connection and mysql connection
-student(app, con);
+user(app, con);
 //professor(app, con);
 //course(app, con);
 
